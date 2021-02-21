@@ -53,13 +53,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget cameraPreviewWidget() {
     if (cameraController == null || !cameraController.value.isInitialized) {
-      return Text(
-        'Loading',
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.w900,
-        ),
+      return Center(
+        child: CircularProgressIndicator(),
       );
     }
 
@@ -73,18 +68,15 @@ class _HomePageState extends State<HomePage> {
     try {
       final path =
           join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
-
-      await cameraController.takePicture();
+      print(path);
+      await cameraController.takePicture(path);
     } catch (e) {
       print(e);
     }
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    availableCameras().then((availableCameras) {
+  void startCamera() async {
+    await availableCameras().then((availableCameras) {
       cameras = availableCameras;
 
       if (cameras.length > 0) {
@@ -95,6 +87,13 @@ class _HomePageState extends State<HomePage> {
     }).catchError((err) {
       print(err);
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    startCamera();
   }
 
   @override
