@@ -50,16 +50,22 @@ class _HomePageState extends State<HomePage> {
                   child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                    decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(30)),
-                    child: Text(
-                      '₹ 500',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500),
-                    )
+                  GestureDetector(
+                       onTap: () {
+                        Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => Scanner()));
+                      },
+                      child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                      decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(30)),
+                      child: Text(
+                        '₹ 500',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w500),
+                      )
+                    ),
                   ),
                   GestureDetector(
                       onTap: () {

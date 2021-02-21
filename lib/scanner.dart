@@ -59,7 +59,7 @@ class _ScannerState extends State<Scanner> {
     try {
       final path =
           join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
-
+      print(path);
       await cameraController.takePicture(path);
     } catch (e) {
       print(e);
