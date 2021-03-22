@@ -28,9 +28,9 @@ class _HomePageState extends State<HomePage> {
   CameraController cameraController;
   List cameras;
   String imgPath;
+  int flag = -1;
 
-  static Future<dynamic> showMessage(m1, m2, context,
-      {bool isDimissible = true}) {
+  Future<dynamic> showMessage(m1, m2, context, {bool isDimissible = true}) {
     return showModalBottomSheet(
         isDismissible: isDimissible,
         context: context,
@@ -51,116 +51,58 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
-                       onTap: () {
-                        Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Scanner()));
-                      },
-                      child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                      decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(30)),
-                      child: Text(
-                        '₹ 500',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500),
-                      )
-                    ),
+                    onTap: () {
+                      setState() {
+                        flag = 0;
+                      }
+
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Scanner(1)));
+                    },
+                    child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.teal,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Text(
+                          '₹ 500',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500),
+                        )),
                   ),
                   GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => Scanner()));
-                      },
-                      child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-                      decoration: BoxDecoration(color: Colors.teal, borderRadius: BorderRadius.circular(30)),
-                      child: Text(
-                        '₹ 2000',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500),
-                      )
-                    ),
+                    onTap: () {
+                      setState() {
+                        flag = 1;
+                      }
+
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Scanner(0)));
+                    },
+                    child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.teal,
+                            borderRadius: BorderRadius.circular(30)),
+                        child: Text(
+                          '₹ 2000',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500),
+                        )),
                   )
-                  
-                  
                 ],
               )));
         });
   }
 
-  Future _initCameraController(CameraDescription cameraDescription) async {
-    if (cameraController != null) {
-      await cameraController.dispose();
-    }
-    cameraController =
-        CameraController(cameraDescription, ResolutionPreset.high);
-
-    cameraController.addListener(() {
-      if (mounted) {
-        setState(() {});
-      }
-    });
-
-    if (cameraController.value.hasError) {
-      print("Camera Error ${cameraController.value.errorDescription}");
-    }
-    try {
-      await cameraController.initialize();
-    } on CameraException catch (e) {
-      print(e);
-    }
-  }
-
-  Widget cameraPreviewWidget() {
-    if (cameraController == null || !cameraController.value.isInitialized) {
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-
-    return AspectRatio(
-      aspectRatio: cameraController.value.aspectRatio,
-      child: CameraPreview(cameraController),
-    );
-  }
-
-  void _onCapturePressed(context) async {
-    try {
-      final path =
-          join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
-      print(path);
-      await cameraController.takePicture(path);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  void startCamera() async {
-    await availableCameras().then((availableCameras) {
-      cameras = availableCameras;
-
-      if (cameras.length > 0) {
-        _initCameraController(cameras[0]).then((void value) {});
-      } else {
-        print("No camera");
-      }
-    }).catchError((err) {
-      print(err);
-    });
-  }
-
   int currentTab = 0;
   final PageStorageBucket bucket = PageStorageBucket();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    startCamera();
-  }
 
   @override
   Widget build(BuildContext context) {
