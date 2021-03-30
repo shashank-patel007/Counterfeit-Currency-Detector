@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:io' as io;
+import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -8,7 +8,9 @@ import 'package:path/path.dart';
 
 class Scanner extends StatefulWidget {
   int flag;
-  Scanner(this.flag);
+  File file;
+  Function back;
+  Scanner(this.flag, this.file, this.back);
   @override
   _ScannerState createState() => _ScannerState(this.flag);
 }
@@ -16,7 +18,7 @@ class Scanner extends StatefulWidget {
 class _ScannerState extends State<Scanner> {
   int flag;
   _ScannerState(this.flag);
-  io.File file;
+  File file;
   String result;
   void _choose() async {
     // final file = await ImagePicker.pickImage(source: ImageSource.camera);
@@ -73,33 +75,52 @@ class _ScannerState extends State<Scanner> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: _choose,
-                child: Text('Choose Image'),
-              ),
-              SizedBox(width: 10.0),
-              RaisedButton(
-                onPressed: _upload,
-                child: Text('Upload Image'),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          file == null ? Text('No Image Selected') : Image.file(file),
-          SizedBox(
-            height: 10,
-          ),
-          displayResult(this.result)
-        ],
+    return WillPopScope(
+      onWillPop: () async {
+        widget.back();
+        return false;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: widget.back),
+          titleSpacing: 0,
+          elevation: 0,
+          backgroundColor: Color(0xff885566),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: <Widget>[
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: <Widget>[
+            //     RaisedButton(
+            //       onPressed: _choose,
+            //       child: Text('Choose Image'),
+            //     ),
+            //     SizedBox(width: 10.0),
+            //     RaisedButton(
+            //       onPressed: _upload,
+            //       child: Text('Upload Image'),
+            //     )
+            //   ],
+            // ),
+            SizedBox(
+              height: 10,
+            ),
+            // file == null ? Text('No Image Selected') :
+            Image.file(widget.file),
+            SizedBox(
+              height: 10,
+            ),
+            RaisedButton(
+              onPressed: _upload,
+              child: Text('Upload Image'),
+            ),
+            displayResult(this.result)
+          ],
+        ),
       ),
     );
   }
