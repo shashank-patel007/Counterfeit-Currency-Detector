@@ -188,13 +188,35 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            body: SafeArea(
+            body: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Image.asset('assets/front-2000.jpg'),
-                  Image.asset('assets/back-2000.jpg')
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                        child: RichText(
+                          text: TextSpan(
+                          text: rs2000Front,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
+                        )),  
+                         
+                  )),
+                  Image.asset('assets/back-2000.jpg'),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                        child: RichText(
+                          text: TextSpan(
+                          text: rs2000Back,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
+                        )),  
+                         
+                  )),
+                  
                 ],
               ),
             ),
