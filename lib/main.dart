@@ -194,6 +194,28 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  Image.asset('assets/front-500.jpg'),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                        child: RichText(
+                          text: TextSpan(
+                          text: rs500Front,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
+                        )),  
+                         
+                  )),
+                  Image.asset('assets/back-500.jpg'),
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    child: Center(
+                        child: RichText(
+                          text: TextSpan(
+                          text: rs500Back,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)
+                        )),  
+                         
+                  )),
                   Image.asset('assets/front-2000.jpg'),
                   Container(
                     padding: EdgeInsets.all(20),

@@ -34,6 +34,44 @@ var sample_data = [
   },
 ];
 
+var rs500Front = """
+1. See through register in 500 denomination numeral
+
+2. Denomination numeral’s latent image
+
+3. Denomination numeral in Devanagari lipi can be found
+
+4. Mahatma Gandhi’s portrait orientation and relative position is changed
+
+5. Windowed security thread changes colour from green to blue when you tilt the note
+
+6. Guarantee clause, Governor’s signature with premium clause and RBI emblem tilted towards right
+
+7. Electrotype and Portrait watermarks
+
+8. Number panel with numerals growing from small to large on top left and bottom right sides
+
+9. On the bottom right denomination numerals with rupee symbol in colour changing ink from green to right
+
+10. Ashoka pillar emblem can be seen on the right side
+
+11. 500 in raised print on the right with circle
+
+12. On the left and right five bleed lines in raised print
+""";
+
+var rs500Back = """
+13. Printed year on the left side
+
+14. Logo of Swatch Bharat with slogan
+
+15. Language panel towards centre
+
+16. Red fort image with Indian flag
+
+17. Numeral of denomination in Devanagari on the right
+""";
+
 var rs2000Front = """
 1. See-through register, with denominational numeral 2000, can be seen when you hold the note against the light.
 
