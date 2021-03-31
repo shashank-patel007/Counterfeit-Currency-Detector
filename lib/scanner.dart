@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:async/async.dart';
 import 'package:path/path.dart';
+import 'banks.dart';
 
 class Scanner extends StatefulWidget {
   int flag;
@@ -20,6 +21,7 @@ class _ScannerState extends State<Scanner> {
   _ScannerState(this.flag);
   File file;
   String result;
+  bool fake = false;
   void _choose() async {
     // final file = await ImagePicker.pickImage(source: ImageSource.camera);
     final file = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -30,7 +32,11 @@ class _ScannerState extends State<Scanner> {
   }
 
   void _upload() async {
-    if (file == null) return;
+    if (file == null) {
+      print("NULL");
+      return;
+    }
+
     var stream = http.ByteStream(DelegatingStream.typed(file.openRead()));
     var length = file.length();
     var uri = Uri.parse("http://192.168.1.3/home");
@@ -62,6 +68,9 @@ class _ScannerState extends State<Scanner> {
         ),
       );
     } else {
+      setState(() {
+        this.fake = true;
+      });
       return Text(
         'FAKE IMAGE',
         style: TextStyle(
@@ -73,8 +82,22 @@ class _ScannerState extends State<Scanner> {
     }
   }
 
+  Widget showBanks(context) {
+    if (this.fake) {
+      return RaisedButton(
+        child: Text("View Banks"),
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ShowBanks()));
+        },
+      );
+    } else
+      return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
+    this.file = widget.file;
     return WillPopScope(
       onWillPop: () async {
         widget.back();
@@ -118,7 +141,14 @@ class _ScannerState extends State<Scanner> {
               onPressed: _upload,
               child: Text('Upload Image'),
             ),
-            displayResult(this.result)
+            SizedBox(
+              height: 10,
+            ),
+            displayResult(this.result),
+            SizedBox(
+              height: 10,
+            ),
+            showBanks(context),
           ],
         ),
       ),
