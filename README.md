@@ -1,16 +1,25 @@
-# currency_detector_app
+# Counterfeit Currency Detection.
 
-A new Flutter project.
+## List of Technologies used:
 
-## Getting Started
+1.Tensorflow 2.x 
+2.Keras 2.2 
+3.Flutter v1.22 for Mobile App 
+4.Django 2.2.13 backend  
+5.REST API between frontend and backend
 
-This project is a starting point for a Flutter application.
+## Steps for running this project.
 
-A few resources to get you started if this is your first Flutter project:
+1. If you do not have Tensorflow, Django, OpenCV and Django rest-framwork installed, type following commands:
+	a. pip install tensorflow
+	b. pip install Django==2.2.13
+	c. pip install opencv-python
+	d. pip install djangorestframework
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+2. Open the currency_detector folder in a shell. 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. Run the command: python manage.py runserver 0.0.0.0:80
+
+3. Once the server is running:
+	a. Install the apk of the app provided. 
+	b. Select which currency you want to predict and make the required predictions and the app will display what prediction is made.
